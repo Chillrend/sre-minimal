@@ -1,0 +1,571 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   SRE-Minimalist Ghost Theme — screen.css
+   Compiled by: Gulp + PostCSS + Tailwind CSS v3 JIT
+────────────────────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* ── Base Layer ────────────────────────────────────────────────────────────── */
+@layer base {
+  :root {
+    --color-accent:   #6366f1;   /* indigo-500 */
+    --color-success:  #10b981;   /* emerald-500 */
+    --color-warning:  #fbbf24;   /* amber-400 */
+    --color-surface:  #18181b;   /* zinc-900 */
+    --color-border:   #27272a;   /* zinc-800 */
+    color-scheme: dark;
+  }
+
+  /* Light mode overrides (when .dark is removed from <html>) */
+  html:not(.dark) {
+    --color-surface:  #f4f4f5;
+    --color-border:   #e4e4e7;
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-zinc-950 text-zinc-200 font-sans antialiased transition-colors duration-300;
+  }
+
+  html:not(.dark) body {
+    @apply bg-zinc-50 text-zinc-800;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { @apply bg-zinc-950; }
+  ::-webkit-scrollbar-thumb { @apply bg-zinc-700 rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-indigo-500; }
+
+  /* Selection color */
+  ::selection {
+    @apply bg-indigo-500/30 text-indigo-200;
+  }
+
+  /* Focus ring */
+  :focus-visible {
+    @apply outline-none ring-2 ring-indigo-500 ring-offset-2 ring-offset-zinc-950;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-mono tracking-tight;
+  }
+}
+
+
+/* ── Components Layer ──────────────────────────────────────────────────────── */
+@layer components {
+
+  /* ── Glass Card ── */
+  .glass-card {
+    @apply relative rounded-xl border border-zinc-800 bg-zinc-900/60 backdrop-blur-sm
+           shadow-card transition-all duration-300 overflow-hidden;
+  }
+
+  .glass-card:hover {
+    @apply border-indigo-500/50;
+    box-shadow: 0 0 20px -5px rgba(99,102,241,0.4);
+  }
+
+  html:not(.dark) .glass-card {
+    @apply bg-white/80 border-zinc-200 shadow-sm;
+  }
+
+  html:not(.dark) .glass-card:hover {
+    @apply border-indigo-400/60;
+  }
+
+  /* ── Mono Badge (tech stack pills) ── */
+  .mono-badge {
+    @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-mono
+           bg-zinc-800 text-indigo-400 border border-zinc-700
+           transition-colors duration-200;
+  }
+
+  .mono-badge:hover {
+    @apply bg-indigo-500/10 border-indigo-500/50 text-indigo-300;
+  }
+
+  html:not(.dark) .mono-badge {
+    @apply bg-zinc-100 text-indigo-600 border-zinc-200;
+  }
+
+  /* ── Terminal Prompt ── */
+  .terminal-prompt::before {
+    content: '$ ';
+    @apply text-emerald-500 font-mono;
+  }
+
+  .terminal-prompt {
+    @apply font-mono text-zinc-300;
+  }
+
+  /* ── Blinking Cursor ── */
+  .terminal-cursor::after {
+    content: '▋';
+    @apply text-indigo-400 animate-blink;
+  }
+
+  /* ── Grid Dot Overlay ── */
+  .grid-overlay {
+    background-image: radial-gradient(circle, rgba(99,102,241,0.12) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  /* ── Section Divider ── */
+  .section-divider {
+    @apply border-0 border-t border-zinc-800 my-12;
+  }
+
+  html:not(.dark) .section-divider {
+    @apply border-zinc-200;
+  }
+
+  /* ── Status Pill ── */
+  .status-pill {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono
+           border border-emerald-500/30 bg-emerald-500/10 text-emerald-400;
+  }
+
+  .status-pill::before {
+    content: '';
+    @apply block w-1.5 h-1.5 rounded-full bg-emerald-500;
+    box-shadow: 0 0 6px 1px rgba(16,185,129,0.6);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.8); }
+  }
+
+  /* ── Navigation Link ── */
+  .nav-link {
+    @apply relative font-mono text-sm text-zinc-400 transition-colors duration-200
+           hover:text-zinc-100 px-1 py-0.5;
+  }
+
+  .nav-link::after {
+    content: '';
+    @apply absolute bottom-0 left-0 h-px w-0 bg-indigo-500
+           transition-all duration-300;
+  }
+
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    @apply w-full;
+  }
+
+  .nav-link.active {
+    @apply text-indigo-400;
+  }
+
+  html:not(.dark) .nav-link {
+    @apply text-zinc-500 hover:text-zinc-900;
+  }
+
+  /* ── Ghost {{navigation}} helper output ── */
+  /* Ghost outputs: <ul class="nav"><li class="nav-[slug] [nav-current]"><a> */
+  #gh-head .nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  #gh-head .nav li {
+    margin: 0;
+    padding: 0;
+  }
+
+  #gh-head .nav li a {
+    @apply nav-link;
+  }
+
+  #gh-head .nav li.nav-current a {
+    @apply text-indigo-400;
+  }
+
+  #gh-head .nav li.nav-current a::after {
+    @apply w-full;
+  }
+
+  /* ── Mobile overlay nav ── */
+  #nav-overlay .nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  #nav-overlay .nav li {
+    margin: 0;
+    padding: 0;
+  }
+
+  #nav-overlay .nav li a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.875rem;
+    color: rgb(212 212 216);
+    border: 1px solid transparent;
+    transition: all 0.15s;
+    text-decoration: none;
+  }
+
+  #nav-overlay .nav li a::before {
+    content: '//';
+    color: rgba(99 102 241 / 0.5);
+    font-size: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  #nav-overlay .nav li a:hover,
+  #nav-overlay .nav li.nav-current a {
+    background: rgb(39 39 42);
+    color: rgb(165 180 252);
+    border-color: rgb(63 63 70);
+  }
+
+  /* ── Button ── */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg font-mono text-sm font-medium
+           bg-indigo-600 text-white border border-indigo-500
+           hover:bg-indigo-500 transition-all duration-200;
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 0 20px -5px rgba(99,102,241,0.4);
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg font-mono text-sm font-medium
+           bg-transparent text-zinc-300 border border-zinc-700
+           hover:border-indigo-500 hover:text-indigo-300
+           transition-all duration-200;
+  }
+
+  html:not(.dark) .btn-ghost {
+    @apply text-zinc-700 border-zinc-300 hover:border-indigo-400 hover:text-indigo-600;
+  }
+
+  /* ── Admonition / Callout Blocks (Ghost kg-callout-card) ── */
+  .kg-callout-card {
+    @apply flex gap-4 rounded-xl p-5 border my-6 font-sans;
+  }
+
+  .kg-callout-card-yellow,
+  .kg-callout-card[data-bg-color='yellow'] {
+    @apply bg-amber-500/10 border-amber-500/30 text-amber-200;
+  }
+
+  .kg-callout-card-green,
+  .kg-callout-card[data-bg-color='green'] {
+    @apply bg-emerald-500/10 border-emerald-500/30 text-emerald-200;
+  }
+
+  .kg-callout-card-blue,
+  .kg-callout-card[data-bg-color='blue'] {
+    @apply bg-indigo-500/10 border-indigo-500/30 text-indigo-200;
+  }
+
+  .kg-callout-card-red,
+  .kg-callout-card[data-bg-color='red'] {
+    @apply bg-red-500/10 border-red-500/30 text-red-200;
+  }
+
+  .kg-callout-card-grey,
+  .kg-callout-card[data-bg-color='grey'] {
+    @apply bg-zinc-800/50 border-zinc-700 text-zinc-300;
+  }
+
+  .kg-callout-emoji {
+    @apply text-2xl leading-none flex-shrink-0;
+  }
+
+  .kg-callout-text {
+    @apply text-sm leading-relaxed;
+  }
+
+  /* ── Ghost Image Card ── */
+  .kg-image-card {
+    @apply my-8;
+  }
+
+  .kg-image-card img {
+    @apply rounded-xl border border-zinc-800 w-full;
+  }
+
+  .kg-image-card figcaption {
+    @apply mt-2 text-center text-xs font-mono text-zinc-500;
+  }
+
+  /* ── Koenig wide / full image widths (required by Ghost validator) ── */
+  .kg-width-wide {
+    position: relative;
+    width: 85vw;
+    min-width: 100%;
+    margin: auto calc(50% - 50vw * 0.85);
+  }
+
+  .kg-width-full {
+    position: relative;
+    width: 100vw;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+  }
+
+  .kg-width-wide img,
+  .kg-width-full img {
+    @apply w-full rounded-none;
+  }
+
+  /* ── Ghost Code Block ── */
+  .kg-code-card pre {
+    @apply rounded-xl border border-zinc-800 bg-zinc-900 p-5 overflow-x-auto text-sm;
+  }
+
+  /* ── Ghost Bookmark Card ── */
+  .kg-bookmark-card {
+    @apply block glass-card no-underline p-4 my-6;
+  }
+
+  .kg-bookmark-content {
+    @apply flex flex-col gap-1;
+  }
+
+  .kg-bookmark-title {
+    @apply font-mono font-medium text-zinc-100 text-sm;
+  }
+
+  .kg-bookmark-description {
+    @apply text-zinc-400 text-xs leading-relaxed line-clamp-2;
+  }
+
+  .kg-bookmark-metadata {
+    @apply flex items-center gap-2 mt-2;
+  }
+
+  .kg-bookmark-icon {
+    @apply w-4 h-4 rounded;
+  }
+
+  .kg-bookmark-publisher {
+    @apply font-mono text-xs text-indigo-400;
+  }
+
+  /* ── Post Feature Image ── */
+  .post-feature-image {
+    @apply relative w-full aspect-video rounded-xl overflow-hidden
+           border border-zinc-800 my-8;
+  }
+
+  .post-feature-image img {
+    @apply w-full h-full object-cover;
+  }
+
+  .post-feature-image::after {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-t from-zinc-950/60 to-transparent;
+  }
+
+  /* ── Animated Headline ── */
+  .anim-word {
+    @apply relative inline-block opacity-0 transition-all duration-500;
+  }
+
+  .anim-word.is-visible {
+    @apply opacity-100;
+  }
+
+  .anim-highlight {
+    @apply text-indigo-400;
+  }
+
+  .home-strike-target,
+  .anim-word.is-struck {
+    @apply relative;
+  }
+
+  .home-strike-target.is-struck::after,
+  .anim-word.is-struck::after {
+    content: '';
+    @apply absolute left-0 top-1/2 h-0.5 bg-red-500/70 transition-all duration-500;
+    width: 0;
+    animation: drawStrike 0.5s ease-out forwards;
+  }
+
+  @keyframes drawStrike {
+    to { width: 100%; }
+  }
+
+  /* ── 404 Terminal ── */
+  .terminal-block {
+    @apply font-mono text-sm leading-relaxed p-6 rounded-xl
+           bg-zinc-900 border border-zinc-800 space-y-1;
+  }
+
+  .terminal-error {
+    @apply text-red-400 font-bold;
+  }
+
+  .terminal-muted {
+    @apply text-zinc-600;
+  }
+
+  .terminal-warn {
+    @apply text-amber-400;
+  }
+
+  .terminal-ok {
+    @apply text-emerald-400;
+  }
+
+  /* ── Post Log Number ── */
+  .log-prefix {
+    @apply font-mono text-xs text-amber-400 select-none;
+  }
+
+  /* ── Search Input ── */
+  .search-input {
+    @apply w-full bg-transparent font-mono text-lg text-zinc-100
+           placeholder-zinc-600 border-0 outline-none caret-transparent;
+  }
+
+  html:not(.dark) .search-input {
+    @apply text-zinc-900 placeholder-zinc-400;
+  }
+
+  /* ── Prose overrides (post body) ── */
+  .gh-content.is-body {
+    @apply prose prose-invert prose-zinc max-w-none;
+  }
+
+  html:not(.dark) .gh-content.is-body {
+    @apply prose prose-zinc max-w-none;
+  }
+
+  .gh-content.is-body pre {
+    @apply bg-zinc-900 border border-zinc-800 rounded-xl text-emerald-300 font-mono text-sm;
+  }
+
+  .gh-content.is-body code:not(pre code) {
+    @apply bg-zinc-800 text-emerald-300 rounded px-1.5 py-0.5 text-sm font-mono
+           before:content-none after:content-none;
+  }
+
+  html:not(.dark) .gh-content.is-body code:not(pre code) {
+    @apply bg-zinc-100 text-indigo-600;
+  }
+
+  .gh-content.is-body blockquote {
+    @apply border-l-4 border-amber-400 bg-amber-500/5 rounded-r-lg
+           pl-4 pr-4 py-2 italic text-zinc-300 not-italic;
+  }
+
+  /* h2/h3 anchor prefix on hover */
+  .gh-content.is-body h2:hover::before,
+  .gh-content.is-body h3:hover::before {
+    content: '# ';
+    @apply text-indigo-500/60;
+  }
+
+  .gh-content.is-body h2,
+  .gh-content.is-body h3 {
+    @apply font-mono;
+  }
+
+  /* ── Author Card (post footer) ── */
+  .author-card {
+    @apply glass-card p-6 flex gap-4 items-start;
+  }
+
+  .author-card-avatar {
+    @apply w-12 h-12 rounded-full border-2 border-zinc-700 object-cover flex-shrink-0;
+  }
+
+  .author-card-name {
+    @apply font-mono font-semibold text-zinc-100 text-sm;
+  }
+
+  .author-card-bio {
+    @apply text-zinc-400 text-sm leading-relaxed mt-0.5;
+  }
+
+  /* ── Footer Terminal ── */
+  .footer-terminal {
+    @apply font-mono text-xs text-zinc-600 space-y-1;
+  }
+
+  /* ── Reading Progress Bar ── */
+  #reading-progress {
+    @apply fixed top-0 left-0 h-0.5 bg-indigo-500 z-50 transition-all duration-100;
+    width: 0;
+  }
+}
+
+
+/* ── Utilities Layer ───────────────────────────────────────────────────────── */
+@layer utilities {
+  .text-shadow-glow {
+    text-shadow: 0 0 20px rgba(99,102,241,0.5);
+  }
+
+  .animate-blink {
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Glassmorphism helper */
+  .glass {
+    @apply backdrop-blur-md bg-zinc-900/70 border border-zinc-800/80;
+  }
+
+  html:not(.dark) .glass {
+    @apply bg-white/80 border-zinc-200/80;
+  }
+
+  /* Indent code line numbers */
+  .prose pre .line-number {
+    @apply text-zinc-600 select-none mr-4 text-right;
+    min-width: 1.5rem;
+    display: inline-block;
+  }
+}

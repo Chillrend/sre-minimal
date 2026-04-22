@@ -1,0 +1,18 @@
+routes:
+  /:
+    template: index
+  /search/:
+    template: search
+    data: false
+
+collections:
+  /blog/:
+    permalink: /{slug}/
+    template:
+      - blog
+      - index
+    filter: 'visibility:public'
+
+taxonomies:
+  tag: /tag/{slug}/
+  author: /author/{slug}/

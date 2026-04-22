@@ -1,0 +1,5 @@
+node_modules/
+assets/built/
+*.zip
+.DS_Store
+.env

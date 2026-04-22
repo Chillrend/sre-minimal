@@ -1,0 +1,64 @@
+{{!< default}}
+{{!-- author.hbs — Author Archive Page --}}
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+  {{#author}}
+
+  {{!-- ── Author Hero ──────────────────────────────────────────────────── --}}
+  <header class="mb-12 pb-12 border-b border-zinc-800">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+
+      {{!-- Avatar --}}
+      {{#if profile_image}}
+        <img src="{{img_url profile_image size="s"}}"
+             alt="{{name}}"
+             class="w-20 h-20 rounded-full border-2 border-zinc-700 object-cover flex-shrink-0">
+      {{else}}
+        <div class="w-20 h-20 rounded-full bg-indigo-600 flex items-center justify-center flex-shrink-0">
+          <span class="font-mono text-white text-3xl font-bold">&gt;_</span>
+        </div>
+      {{/if}}
+
+      {{!-- Info --}}
+      <div class="space-y-3">
+        <div>
+          <span class="font-mono text-xs text-zinc-600">// author</span>
+          <h1 class="text-2xl sm:text-3xl font-mono font-bold text-zinc-100 mt-1">{{name}}</h1>
+        </div>
+
+        {{#if bio}}
+          <p class="text-zinc-400 text-sm leading-relaxed max-w-2xl">{{bio}}</p>
+        {{/if}}
+
+        <div class="flex items-center flex-wrap gap-3">
+          <span class="mono-badge">{{count.posts}} posts</span>
+          {{#if website}}
+            <a href="{{website}}" class="nav-link text-xs" target="_blank" rel="noopener">
+              web ↗
+            </a>
+          {{/if}}
+          {{#if twitter}}
+            <a href="https://twitter.com/{{twitter}}" class="nav-link text-xs" target="_blank" rel="noopener">
+              @{{twitter}}
+            </a>
+          {{/if}}
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  {{/author}}
+
+  {{!-- ── Post Grid ──────────────────────────────────────────────────────── --}}
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
+    {{#foreach posts}}
+      {{> post-card}}
+    {{/foreach}}
+  </div>
+
+  {{!-- Pagination --}}
+  {{> pagination}}
+
+</div>

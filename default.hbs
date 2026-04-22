@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="{{@site.locale}}" class="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>{{meta_title}}</title>
+  <link rel="canonical" href="{{canonical_url}}">
+
+  {{!-- Favicon --}}
+  {{#if @site.icon}}
+    <link rel="icon" href="{{img_url @site.icon}}" type="image/png">
+  {{/if}}
+
+  {{!-- Fonts (preconnect for performance) --}}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  {{!-- Theme CSS (compiled by Gulp) --}}
+  <link rel="stylesheet" type="text/css" href="{{asset "built/screen.css"}}">
+
+  {{!-- Page-specific styles --}}
+  {{{block "styles"}}}
+
+  {{!-- Ghost head: outputs title, description, OG, Twitter Card, structured data, member scripts --}}
+  {{ghost_head}}
+</head>
+
+<body class="{{body_class}} min-h-screen flex flex-col transition-colors duration-300">
+
+  {{!-- Reading progress bar (visible only on posts) --}}
+  <div id="reading-progress" aria-hidden="true"></div>
+
+  {{!-- Header / Navigation --}}
+  {{> header}}
+
+  {{!-- ── Main Content ──────────────────────────────────────────────────── --}}
+  <main id="gh-main" class="flex-1 w-full" tabindex="-1">
+    {{{body}}}
+  </main>
+
+  {{!-- ── Footer ────────────────────────────────────────────────────────── --}}
+  <footer class="mt-24 border-t border-zinc-800 dark:border-zinc-800 html:not(.dark):border-zinc-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        {{!-- Brand + tagline --}}
+        <div class="space-y-3">
+          <a href="{{@site.url}}" class="flex items-center gap-2 group w-fit">
+            <div class="w-6 h-6 rounded bg-indigo-600 flex items-center justify-center flex-shrink-0">
+              <span class="text-white font-mono text-xs font-bold leading-none">&gt;_</span>
+            </div>
+            <span class="font-mono font-semibold text-zinc-300 text-sm group-hover:text-indigo-300 transition-colors">
+              {{@site.title}}
+            </span>
+          </a>
+          {{#if @site.description}}
+            <p class="text-zinc-500 text-xs leading-relaxed max-w-xs">{{@site.description}}</p>
+          {{/if}}
+          <div class="status-pill w-fit">all systems operational</div>
+        </div>
+
+        {{!-- Navigation links --}}
+        <div class="space-y-2">
+          <p class="font-mono text-xs text-zinc-600 mb-3">// links</p>
+          {{navigation type="secondary"}}
+        </div>
+
+        {{!-- Terminal uptime block --}}
+        <div class="footer-terminal">
+          <p class="text-zinc-600 mb-2">// system info</p>
+          <p>
+            <span class="text-emerald-500">$</span>
+            <span class="text-zinc-500"> uptime --since "{{@site.url}}"</span>
+          </p>
+          <p>
+            <span class="text-zinc-600">&gt;</span>
+            <span class="text-zinc-500"> © {{date format="YYYY"}} {{@site.title}}</span>
+          </p>
+          <p>
+            <span class="text-zinc-600">&gt;</span>
+            <span class="text-zinc-500"> Built with </span>
+            <a href="https://ghost.org" class="text-indigo-400 hover:text-indigo-300 transition-colors" target="_blank" rel="noopener">Ghost</a>
+            <span class="text-zinc-500"> + </span>
+            <span class="text-indigo-400">SRE-Minimalist</span>
+          </p>
+          <p>
+            <span class="text-zinc-600">&gt;</span>
+            <span class="text-emerald-500"> STATUS: </span>
+            <span class="text-emerald-400">OPERATIONAL ✓</span>
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </footer>
+
+  {{!-- Theme JS --}}
+  <script src="{{asset "built/main.min.js"}}"></script>
+
+  {{!-- Page-specific scripts --}}
+  {{{block "scripts"}}}
+
+  {{!-- Ghost foot (Portal, Koenig editor scripts) --}}
+  {{ghost_foot}}
+
+</body>
+</html>

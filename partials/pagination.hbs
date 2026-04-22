@@ -1,0 +1,46 @@
+{{!-- partials/pagination.hbs --}}
+{{!-- Previous / Next navigation for archive pages --}}
+
+{{#if pagination}}
+<nav class="flex items-center justify-between mt-16 pt-8 border-t border-zinc-800"
+     aria-label="Post pagination">
+
+  {{!-- Previous Page (newer posts) --}}
+  <div class="flex-1">
+    {{#if prev}}
+      <a href="{{page_url prev}}"
+         class="btn-ghost inline-flex items-center gap-2 text-xs"
+         rel="prev">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        newer
+      </a>
+    {{/if}}
+  </div>
+
+  {{!-- Page indicator --}}
+  <div class="flex-shrink-0 px-4">
+    <span class="font-mono text-xs text-zinc-600">
+      <span class="text-zinc-400">{{page}}</span>
+      <span class="mx-1">/</span>
+      <span>{{pages}}</span>
+    </span>
+  </div>
+
+  {{!-- Next Page (older posts) --}}
+  <div class="flex-1 flex justify-end">
+    {{#if next}}
+      <a href="{{page_url next}}"
+         class="btn-ghost inline-flex items-center gap-2 text-xs"
+         rel="next">
+        older
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </a>
+    {{/if}}
+  </div>
+
+</nav>
+{{/if}}

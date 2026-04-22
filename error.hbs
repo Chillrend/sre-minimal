@@ -1,0 +1,32 @@
+{{!< default}}
+{{!-- error.hbs — Generic Error Page (non-404) --}}
+
+<div class="min-h-[70vh] flex flex-col items-center justify-center px-4 py-24">
+  <div class="w-full max-w-2xl space-y-8">
+
+    <div class="terminal-block">
+      <p class="terminal-error text-lg mb-4">
+        SYSTEM ERROR — {{statusCode}} {{#if message}}{{message}}{{else}}Unexpected Failure{{/if}}
+      </p>
+      <p class="terminal-muted">$ An unexpected condition was encountered.</p>
+      <p class="terminal-warn">&gt; Status: {{statusCode}}</p>
+      {{#if message}}
+        <p class="terminal-warn">&gt; Message: {{message}}</p>
+      {{/if}}
+      <p class="mt-4">
+        <span class="terminal-ok">●</span>
+        <span class="text-zinc-400"> Core systems are running. Report this if the issue persists.</span>
+      </p>
+      <p class="mt-4">
+        <span class="text-emerald-500">$</span>
+        <span class="terminal-cursor ml-1"></span>
+      </p>
+    </div>
+
+    <div class="flex flex-wrap gap-4">
+      <a href="/" class="btn-primary">← return home</a>
+      <button onclick="history.back()" class="btn-ghost">↩ go back</button>
+    </div>
+
+  </div>
+</div>

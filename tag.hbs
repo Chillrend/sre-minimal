@@ -1,0 +1,44 @@
+{{!< default}}
+{{!-- tag.hbs — Tag Archive Page --}}
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+  {{#tag}}
+
+  {{!-- ── Tag Hero ──────────────────────────────────────────────────────── --}}
+  <header class="mb-12 pb-12 border-b border-zinc-800 space-y-4">
+    <div class="flex items-center gap-3">
+      {{#if accent_color}}
+        <div class="w-3 h-3 rounded-full" style="background-color: {{accent_color}}"></div>
+      {{else}}
+        <div class="w-3 h-3 rounded-full bg-indigo-500"></div>
+      {{/if}}
+      <span class="font-mono text-xs text-zinc-600">// tag</span>
+    </div>
+
+    <h1 class="text-3xl sm:text-4xl font-mono font-bold text-zinc-100">
+      {{name}}
+    </h1>
+
+    {{#if description}}
+      <p class="text-zinc-400 text-base leading-relaxed max-w-2xl">{{description}}</p>
+    {{/if}}
+
+    <div class="flex items-center gap-4">
+      <span class="mono-badge">{{count.posts}} posts</span>
+    </div>
+  </header>
+
+  {{/tag}}
+
+  {{!-- ── Post Grid ───────────────────────────────────────────────────────── --}}
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
+    {{#foreach posts}}
+      {{> post-card}}
+    {{/foreach}}
+  </div>
+
+  {{!-- Pagination --}}
+  {{> pagination}}
+
+</div>

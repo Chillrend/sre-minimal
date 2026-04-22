@@ -1,0 +1,149 @@
+{{!-- partials/navigation.hbs --}}
+{{!-- Site header: logo, nav links, theme toggle, subscribe, mobile burger --}}
+
+<header id="gh-head" class="
+  fixed top-0 left-0 right-0 z-40
+  border-b border-zinc-800/0
+  transition-all duration-300
+  bg-zinc-950/0 backdrop-blur-0
+  [&.is-scrolled]:bg-zinc-950/90 [&.is-scrolled]:backdrop-blur-md [&.is-scrolled]:border-zinc-800/80
+  dark:bg-zinc-950/0 dark:[&.is-scrolled]:bg-zinc-950/90
+">
+
+  {{!-- Light mode header --}}
+  <div class="
+    hidden [html:not(.dark)_&]:block
+    fixed top-0 left-0 right-0 z-40
+    border-b border-zinc-200/0
+    transition-all duration-300
+    [&.is-scrolled]:bg-white/90 [&.is-scrolled]:backdrop-blur-md [&.is-scrolled]:border-zinc-200
+  "></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+
+      {{!-- ── Logo / Site Name ─────────────────────────────────────────── --}}
+      <a href="{{@site.url}}" class="flex items-center gap-2 group" aria-label="{{@site.title}} home">
+        {{#if @site.icon}}
+          <img src="{{img_url @site.icon}}" alt="{{@site.title}}" class="w-7 h-7 rounded">
+        {{else}}
+          {{!-- Default: monospace terminal icon --}}
+          <div class="w-7 h-7 rounded bg-indigo-600 flex items-center justify-center flex-shrink-0">
+            <span class="text-white font-mono text-xs font-bold leading-none">&gt;_</span>
+          </div>
+        {{/if}}
+        <span class="font-mono font-semibold text-zinc-100 text-sm group-hover:text-indigo-300 transition-colors
+                     dark:text-zinc-100 text-zinc-800 html:not(.dark):text-zinc-800">
+          {{@site.title}}
+        </span>
+      </a>
+
+      {{!-- ── Desktop Navigation ──────────────────────────────────────── --}}
+      <nav class="hidden md:flex items-center gap-6" aria-label="Main navigation">
+        {{navigation}}
+        {{!-- Ghost navigation helper wraps links — styled below via .gh-nav-item --}}
+      </nav>
+
+      {{!-- ── Right Controls ───────────────────────────────────────────── --}}
+      <div class="flex items-center gap-3">
+
+        {{!-- Search link --}}
+        <a href="/search/" class="nav-link flex items-center gap-1.5" aria-label="Search">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+          <span class="hidden lg:inline">search</span>
+        </a>
+
+        {{!-- Theme Toggle --}}
+        <button id="theme-toggle"
+                class="nav-link p-1 rounded-md hover:bg-zinc-800 transition-colors"
+                aria-label="Toggle dark/light mode">
+          {{!-- Sun icon (shown in dark mode → click to go light) --}}
+          <svg id="theme-icon-sun" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 3v1m0 16v1m8.485-8.485h-1M4.515 12H3.5m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/>
+          </svg>
+          {{!-- Moon icon (shown in light mode → click to go dark) --}}
+          <svg id="theme-icon-moon" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+          </svg>
+        </button>
+
+        {{!-- Ghost Portal Subscribe / Member Badge --}}
+        {{#if @member}}
+          <span class="mono-badge text-emerald-400 border-emerald-500/40">
+            ● member
+          </span>
+        {{else}}
+          <a href="#/portal/signup"
+             data-portal="signup"
+             class="btn-primary hidden sm:inline-flex text-xs py-1.5 px-3">
+            subscribe
+          </a>
+        {{/if}}
+
+        {{!-- Mobile Burger --}}
+        <button id="nav-burger"
+                class="md:hidden nav-link p-1 rounded-md hover:bg-zinc-800 transition-colors"
+                aria-label="Open menu"
+                aria-expanded="false"
+                aria-controls="nav-overlay">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+
+      </div>
+    </div>
+  </div>
+</header>
+
+{{!-- ── Mobile Nav Overlay ──────────────────────────────────────────────── --}}
+<div id="nav-overlay"
+     class="fixed inset-0 z-50 bg-zinc-950/95 backdrop-blur-md
+            flex flex-col
+            translate-x-full opacity-0 pointer-events-none
+            transition-all duration-300 ease-in-out
+            dark:bg-zinc-950/95">
+
+  <div class="flex items-center justify-between px-6 h-16 border-b border-zinc-800">
+    <span class="font-mono text-sm text-zinc-400">// navigation</span>
+    <button id="nav-close"
+            class="p-1 rounded-md text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800 transition-colors"
+            aria-label="Close menu">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+
+  <nav class="flex flex-col gap-1 p-6 flex-1" aria-label="Mobile navigation">
+    {{navigation type="primary"}}
+    <a href="/search/"
+       class="flex items-center gap-3 px-3 py-3 rounded-lg font-mono text-zinc-300
+              hover:bg-zinc-800 hover:text-indigo-300 transition-colors text-base border border-transparent
+              hover:border-zinc-700">
+      <svg class="w-4 h-4 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+      </svg>
+      search
+    </a>
+  </nav>
+
+  {{!-- Terminal footer in mobile nav --}}
+  <div class="px-6 py-4 border-t border-zinc-800">
+    <p class="font-mono text-xs text-zinc-600">
+      <span class="text-emerald-500">●</span> {{@site.title}} — all systems operational
+    </p>
+  </div>
+</div>
+
+{{!-- Spacer to push content below fixed header --}}
+<div class="h-16"></div>
+
+{{!-- Nav styling lives in assets/css/screen.css → .gh-head .nav --}}

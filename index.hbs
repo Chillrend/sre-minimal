@@ -1,0 +1,279 @@
+{{!< default}}
+{{!-- index.hbs — Homepage --}}
+{{!-- The complete landing page: hero, animated headline, stack grid, projects, posts --}}
+
+<div id="gh-home">
+
+  {{!-- ── HERO SECTION ─────────────────────────────────────────────────────── --}}
+  <section class="relative min-h-[85vh] flex flex-col justify-center pb-24 overflow-hidden">
+
+    {{!-- Grid dot background texture --}}
+    <div class="absolute inset-0 grid-overlay pointer-events-none" aria-hidden="true"></div>
+
+    {{!-- Radial glow behind text --}}
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+                  w-[600px] h-[600px] rounded-full
+                  bg-indigo-600/10 blur-[100px]"></div>
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+
+      {{!-- System status pill --}}
+      <div class="mb-8 animate-fade-in">
+        <div class="status-pill w-fit">all systems operational</div>
+      </div>
+
+      {{!-- Animated headline --}}
+      <div class="space-y-2 mb-8">
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-mono font-bold text-zinc-100 leading-tight">
+          Hi, I'm an engineer.
+        </h1>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-mono font-bold text-zinc-100 leading-tight">
+          I write&nbsp;<span id="anim-target" class="home-strike-target text-zinc-300">efficient</span>&nbsp;<span id="anim-after">codes</span>
+        </h1>
+      </div>
+
+      {{!-- Bio --}}
+      <div class="max-w-2xl space-y-4 text-zinc-400 text-lg leading-relaxed mb-10 animate-fade-in" style="animation-delay:0.2s">
+        <p>
+          I architect infrastructure, deploy reliable systems, and keep networks secure.
+          From bare-metal virtualization to automated monitoring, I build the foundation
+          that applications run on.
+        </p>
+        <p>
+          <a href="mailto:{{@site.twitter}}"
+             class="inline-flex items-center gap-2 text-indigo-400 hover:text-indigo-300
+                    font-mono text-base transition-colors duration-200 group">
+            Let's have a chat
+            <span class="group-hover:translate-x-1 transition-transform duration-200">→</span>
+          </a>
+        </p>
+      </div>
+
+      {{!-- Quick stats row --}}
+      <div class="flex flex-wrap gap-6 font-mono text-xs text-zinc-600 animate-fade-in" style="animation-delay:0.4s">
+        <span><span class="text-emerald-500">●</span> Proxmox / ESXi</span>
+        <span><span class="text-indigo-400">●</span> MikroTik / NetBox</span>
+        <span><span class="text-amber-400">●</span> Grafana / Prometheus</span>
+        <span><span class="text-indigo-400">●</span> Node.js / Next.js</span>
+      </div>
+
+    </div>
+  </section>
+
+  {{!-- ── MAIN CONTENT ────────────────────────────────────────────────────── --}}
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 space-y-24">
+
+    {{!-- ── THE STACK SECTION ──────────────────────────────────────────────── --}}
+    <section id="stack" aria-labelledby="stack-heading">
+      <hr class="section-divider">
+
+      <div class="mb-10">
+        <h2 id="stack-heading" class="text-2xl font-mono font-bold text-zinc-100 mb-2">
+          // The Stack
+        </h2>
+        <p class="text-zinc-400 text-base max-w-2xl">
+          Software is only as good as the infrastructure it runs on. Here is the toolbelt
+          I use to ensure high availability, visibility, and security across the network.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+        {{!-- Virtualization --}}
+        <div class="glass-card p-6 border-l-2 border-l-indigo-500 space-y-3">
+          <h3 class="font-mono font-semibold text-zinc-100 text-sm">
+            Virtualization &amp; Containers
+          </h3>
+          <p class="text-zinc-400 text-sm leading-relaxed">
+            Managing bare-metal hypervisors and containerized workloads for efficient
+            resource allocation and isolated environments.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="mono-badge">Proxmox</span>
+            <span class="mono-badge">ESXi</span>
+            <span class="mono-badge">Docker</span>
+            <span class="mono-badge">Linux</span>
+          </div>
+        </div>
+
+        {{!-- Networking --}}
+        <div class="glass-card p-6 border-l-2 border-l-emerald-500 space-y-3">
+          <h3 class="font-mono font-semibold text-zinc-100 text-sm">
+            Networking &amp; Infrastructure
+          </h3>
+          <p class="text-zinc-400 text-sm leading-relaxed">
+            Routing, bandwidth management, and maintaining a Single Source of Truth
+            for complex network topologies.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="mono-badge">MikroTik</span>
+            <span class="mono-badge">NetBox</span>
+            <span class="mono-badge">RADIUS</span>
+          </div>
+        </div>
+
+        {{!-- Observability --}}
+        <div class="glass-card p-6 border-l-2 border-l-amber-400 space-y-3">
+          <h3 class="font-mono font-semibold text-zinc-100 text-sm">
+            Observability &amp; Storage
+          </h3>
+          <p class="text-zinc-400 text-sm leading-relaxed">
+            Keeping a pulse on system health through metrics, and managing distributed
+            or high-throughput storage systems.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="mono-badge">Grafana</span>
+            <span class="mono-badge">Prometheus</span>
+            <span class="mono-badge">SeaweedFS</span>
+            <span class="mono-badge">Frigate</span>
+          </div>
+        </div>
+
+        {{!-- Automation --}}
+        <div class="glass-card p-6 border-l-2 border-l-indigo-500 space-y-3">
+          <h3 class="font-mono font-semibold text-zinc-100 text-sm">
+            Automation &amp; Security
+          </h3>
+          <p class="text-zinc-400 text-sm leading-relaxed">
+            Writing internal tools to automate incident response workflows and
+            securing organizational endpoints.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="mono-badge">CSIRT Ops</span>
+            <span class="mono-badge">Node.js</span>
+            <span class="mono-badge">Next.js</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    {{!-- ── IN THE TRENCHES — PROJECTS ─────────────────────────────────────── --}}
+    <section id="projects" aria-labelledby="projects-heading">
+      <hr class="section-divider">
+
+      <div class="mb-10">
+        <h2 id="projects-heading" class="text-2xl font-mono font-bold text-zinc-100 mb-2">
+          // In The Trenches
+        </h2>
+        <p class="text-zinc-400 text-base max-w-2xl">
+          Real-world deployments that required getting hands dirty at every layer of the stack.
+        </p>
+      </div>
+
+      <div class="space-y-4">
+
+        {{!-- Project 01 --}}
+        <div class="glass-card p-6 flex gap-6 group">
+          <div class="log-prefix flex-shrink-0 pt-0.5 select-none transition-colors group-hover:text-indigo-400">[01]</div>
+          <div class="space-y-2">
+            <h3 class="font-mono font-semibold text-zinc-100 text-sm group-hover:text-indigo-300 transition-colors">
+              High-Concurrency LMS Deployment
+            </h3>
+            <p class="text-zinc-400 text-sm leading-relaxed">
+              Architected and deployed a highly optimized Moodle instance designed to handle concurrent testing
+              loads for 3,500 users. Required fine-tuning virtualization resources on Proxmox and strict
+              database optimization to ensure zero downtime during critical examination windows.
+            </p>
+            <div class="flex gap-2 pt-1">
+              <span class="mono-badge">Proxmox</span>
+              <span class="mono-badge">Moodle</span>
+              <span class="mono-badge">MySQL</span>
+            </div>
+          </div>
+        </div>
+
+        {{!-- Project 02 --}}
+        <div class="glass-card p-6 flex gap-6 group">
+          <div class="log-prefix flex-shrink-0 pt-0.5 select-none transition-colors group-hover:text-indigo-400">[02]</div>
+          <div class="space-y-2">
+            <h3 class="font-mono font-semibold text-zinc-100 text-sm group-hover:text-indigo-300 transition-colors">
+              Network Authentication Migration
+            </h3>
+            <p class="text-zinc-400 text-sm leading-relaxed">
+              Led the migration of an organizational internet login system to a centralized RADIUS
+              infrastructure. Implemented PCQ on MikroTik routers to enforce strict, fair bandwidth management
+              across the network, drastically reducing network congestion complaints.
+            </p>
+            <div class="flex gap-2 pt-1">
+              <span class="mono-badge">RADIUS</span>
+              <span class="mono-badge">MikroTik</span>
+              <span class="mono-badge">PCQ</span>
+            </div>
+          </div>
+        </div>
+
+        {{!-- Project 03 --}}
+        <div class="glass-card p-6 flex gap-6 group">
+          <div class="log-prefix flex-shrink-0 pt-0.5 select-none transition-colors group-hover:text-indigo-400">[03]</div>
+          <div class="space-y-2">
+            <h3 class="font-mono font-semibold text-zinc-100 text-sm group-hover:text-indigo-300 transition-colors">
+              Infrastructure SSOT Implementation
+            </h3>
+            <p class="text-zinc-400 text-sm leading-relaxed">
+              Spearheaded the deployment and population of a NetBox instance to serve as the Single Source of
+              Truth for all network and IPAM documentation. Transitioned the team away from fragmented
+              spreadsheets to a structured, API-accessible database for infrastructure tracking.
+            </p>
+            <div class="flex gap-2 pt-1">
+              <span class="mono-badge">NetBox</span>
+              <span class="mono-badge">IPAM</span>
+              <span class="mono-badge">REST API</span>
+            </div>
+          </div>
+        </div>
+
+        {{!-- Project 04 --}}
+        <div class="glass-card p-6 flex gap-6 group">
+          <div class="log-prefix flex-shrink-0 pt-0.5 select-none transition-colors group-hover:text-indigo-400">[04]</div>
+          <div class="space-y-2">
+            <h3 class="font-mono font-semibold text-zinc-100 text-sm group-hover:text-indigo-300 transition-colors">
+              CSIRT Incident Automation Tooling
+            </h3>
+            <p class="text-zinc-400 text-sm leading-relaxed">
+              In response to a large-scale phishing incident, developed a semi-automated password reset and
+              ticketing pipeline using Node.js. This tooling allowed the support team to process the massive
+              influx of compromised accounts rapidly while maintaining strict access controls.
+            </p>
+            <div class="flex gap-2 pt-1">
+              <span class="mono-badge">Node.js</span>
+              <span class="mono-badge">CSIRT</span>
+              <span class="mono-badge">Automation</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    {{!-- ── LATEST POSTS ─────────────────────────────────────────────────── --}}
+    {{#get "posts" limit="6" include="tags,authors"}}
+      {{#if posts}}
+      <section id="posts" aria-labelledby="posts-heading">
+        <hr class="section-divider">
+
+        <div class="flex items-end justify-between mb-10">
+          <div>
+            <h2 id="posts-heading" class="text-2xl font-mono font-bold text-zinc-100 mb-2">
+              // Latest Posts
+            </h2>
+            <p class="text-zinc-400 text-base">Writings from the trenches.</p>
+          </div>
+          <a href="/blog/" class="btn-ghost text-xs">
+            view all →
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {{#foreach posts}}
+            {{> post-card}}
+          {{/foreach}}
+        </div>
+      </section>
+      {{/if}}
+    {{/get}}
+
+  </div>
+</div>

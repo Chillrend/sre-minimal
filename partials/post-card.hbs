@@ -1,0 +1,73 @@
+{{!-- partials/post-card.hbs --}}
+{{!-- Reusable post card: used in index.hbs, tag.hbs, author.hbs, search.hbs --}}
+
+<article class="{{post_class}} glass-card group animate-fade-in">
+  <a href="{{url}}" class="block no-underline" aria-label="Read: {{title}}">
+
+    {{!-- Feature Image --}}
+    {{#if feature_image}}
+    <div class="relative w-full h-44 overflow-hidden rounded-t-xl">
+      <img
+        src="{{img_url feature_image size="m"}}"
+        alt="{{title}}"
+        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+        loading="lazy"
+      >
+      {{!-- Subtle vignette --}}
+      <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/70 via-transparent to-transparent"></div>
+    </div>
+    {{/if}}
+
+    <div class="p-5 space-y-3">
+
+      {{!-- Tag + Reading Time row --}}
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          {{#primary_tag}}
+            <span class="mono-badge">{{name}}</span>
+          {{/primary_tag}}
+          {{#if featured}}
+            <span class="mono-badge border-amber-500/40 text-amber-400">★ featured</span>
+          {{/if}}
+        </div>
+        <span class="font-mono text-xs text-zinc-600">{{reading_time}}</span>
+      </div>
+
+      {{!-- Title --}}
+      <h2 class="font-mono font-semibold text-zinc-100 text-base leading-snug
+                 group-hover:text-indigo-300 transition-colors duration-200 line-clamp-2">
+        {{title}}
+      </h2>
+
+      {{!-- Excerpt --}}
+      {{#if custom_excerpt}}
+        <p class="text-zinc-400 text-sm leading-relaxed line-clamp-2">{{custom_excerpt}}</p>
+      {{else}}
+        <p class="text-zinc-400 text-sm leading-relaxed line-clamp-2">{{excerpt words="20"}}</p>
+      {{/if}}
+
+      {{!-- Meta: Author + Date --}}
+      <div class="flex items-center justify-between pt-1 border-t border-zinc-800/60">
+        <div class="flex items-center gap-2">
+          {{#primary_author}}
+            {{#if profile_image}}
+              <img src="{{img_url profile_image size="xs"}}"
+                   alt="{{name}}"
+                   class="w-5 h-5 rounded-full border border-zinc-700 object-cover">
+            {{else}}
+              <div class="w-5 h-5 rounded-full bg-indigo-600 flex items-center justify-center flex-shrink-0">
+                <span class="font-mono text-white text-xs leading-none">&gt;_</span>
+              </div>
+            {{/if}}
+            <span class="font-mono text-xs text-zinc-500">{{name}}</span>
+          {{/primary_author}}
+        </div>
+        <time class="font-mono text-xs text-zinc-600"
+              datetime="{{date format="YYYY-MM-DD"}}">
+          {{date format="MMM D, YYYY"}}
+        </time>
+      </div>
+
+    </div>
+  </a>
+</article>
