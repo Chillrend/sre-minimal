@@ -1,9 +1,10 @@
 /* ─────────────────────────────────────────────────────────────────────────────
    SRE-Minimalist Ghost Theme — screen.css
+   Design System: DevOps Graphite
    Compiled by: Gulp + PostCSS + Tailwind CSS v3 JIT
 ────────────────────────────────────────────────────────────────────────────── */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -12,52 +13,34 @@
 
 /* ── Base Layer ────────────────────────────────────────────────────────────── */
 @layer base {
-  :root {
-    --color-accent:   #6366f1;   /* indigo-500 */
-    --color-success:  #10b981;   /* emerald-500 */
-    --color-warning:  #fbbf24;   /* amber-400 */
-    --color-surface:  #18181b;   /* zinc-900 */
-    --color-border:   #27272a;   /* zinc-800 */
+  html {
+    scroll-behavior: smooth;
     color-scheme: dark;
   }
 
-  /* Light mode overrides (when .dark is removed from <html>) */
-  html:not(.dark) {
-    --color-surface:  #f4f4f5;
-    --color-border:   #e4e4e7;
-    color-scheme: light;
-  }
-
-  html {
-    scroll-behavior: smooth;
-  }
-
   body {
-    @apply bg-zinc-950 text-zinc-200 font-sans antialiased transition-colors duration-300;
-  }
-
-  html:not(.dark) body {
-    @apply bg-zinc-50 text-zinc-800;
+    @apply bg-gx-neutral text-gx-primary font-sans text-body antialiased;
   }
 
   /* Custom scrollbar */
   ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { @apply bg-zinc-950; }
-  ::-webkit-scrollbar-thumb { @apply bg-zinc-700 rounded-full; }
-  ::-webkit-scrollbar-thumb:hover { @apply bg-indigo-500; }
+  ::-webkit-scrollbar-track { @apply bg-gx-neutral; }
+  ::-webkit-scrollbar-thumb { @apply bg-gx-border rounded-gx-sm; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-gx-tertiary; }
 
   /* Selection color */
   ::selection {
-    @apply bg-indigo-500/30 text-indigo-200;
+    background: rgba(62, 200, 147, 0.25);
+    @apply text-gx-primary;
   }
 
   /* Focus ring */
   :focus-visible {
-    @apply outline-none ring-2 ring-indigo-500 ring-offset-2 ring-offset-zinc-950;
+    @apply outline-none ring-2 ring-gx-tertiary ring-offset-2 ring-offset-gx-neutral;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-mono tracking-tight;
+    @apply font-display font-semibold tracking-tight text-gx-primary;
   }
 }
 
@@ -67,79 +50,64 @@
 
   /* ── Glass Card ── */
   .glass-card {
-    @apply relative rounded-xl border border-zinc-800 bg-zinc-900/60 backdrop-blur-sm
-           shadow-card transition-all duration-300 overflow-hidden;
+    @apply relative rounded-gx-lg border border-gx-border bg-gx-surface
+           transition-all duration-300 overflow-hidden;
   }
 
   .glass-card:hover {
-    @apply border-indigo-500/50;
-    box-shadow: 0 0 20px -5px rgba(99,102,241,0.4);
-  }
-
-  html:not(.dark) .glass-card {
-    @apply bg-white/80 border-zinc-200 shadow-sm;
-  }
-
-  html:not(.dark) .glass-card:hover {
-    @apply border-indigo-400/60;
+    border-color: rgba(62, 200, 147, 0.4);
   }
 
   /* ── Mono Badge (tech stack pills) ── */
   .mono-badge {
-    @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-mono
-           bg-zinc-800 text-indigo-400 border border-zinc-700
+    @apply inline-flex items-center px-2 py-0.5 rounded-gx-sm text-label font-mono
+           bg-gx-surface text-gx-secondary border border-gx-border
            transition-colors duration-200;
   }
 
   .mono-badge:hover {
-    @apply bg-indigo-500/10 border-indigo-500/50 text-indigo-300;
-  }
-
-  html:not(.dark) .mono-badge {
-    @apply bg-zinc-100 text-indigo-600 border-zinc-200;
+    @apply text-gx-tertiary;
+    border-color: rgba(62, 200, 147, 0.4);
   }
 
   /* ── Terminal Prompt ── */
   .terminal-prompt::before {
     content: '$ ';
-    @apply text-emerald-500 font-mono;
+    @apply text-gx-tertiary font-mono;
   }
 
   .terminal-prompt {
-    @apply font-mono text-zinc-300;
+    @apply font-mono text-gx-primary;
   }
 
   /* ── Blinking Cursor ── */
   .terminal-cursor::after {
     content: '▋';
-    @apply text-indigo-400 animate-blink;
+    @apply text-gx-tertiary animate-blink;
   }
 
   /* ── Grid Dot Overlay ── */
   .grid-overlay {
-    background-image: radial-gradient(circle, rgba(99,102,241,0.12) 1px, transparent 1px);
-    background-size: 28px 28px;
+    @apply bg-grid-dot;
   }
 
   /* ── Section Divider ── */
   .section-divider {
-    @apply border-0 border-t border-zinc-800 my-12;
-  }
-
-  html:not(.dark) .section-divider {
-    @apply border-zinc-200;
+    @apply border-0 border-t border-gx-border my-12;
   }
 
   /* ── Status Pill ── */
   .status-pill {
-    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono
-           border border-emerald-500/30 bg-emerald-500/10 text-emerald-400;
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-label font-mono
+           text-gx-tertiary;
+    border: 1px solid rgba(62, 200, 147, 0.3);
+    background: rgba(62, 200, 147, 0.08);
   }
 
   .status-pill::before {
     content: '';
-    @apply block w-1.5 h-1.5 rounded-full bg-emerald-500;
-    box-shadow: 0 0 6px 1px rgba(16,185,129,0.6);
+    @apply block w-1.5 h-1.5 rounded-full bg-gx-tertiary;
+    box-shadow: 0 0 6px 1px rgba(62, 200, 147, 0.6);
     animation: pulse-dot 2s ease-in-out infinite;
   }
 
@@ -150,14 +118,18 @@
 
   /* ── Navigation Link ── */
   .nav-link {
-    @apply relative font-mono text-sm text-zinc-400 transition-colors duration-200
-           hover:text-zinc-100 px-1 py-0.5;
+    @apply relative font-mono text-label uppercase text-gx-secondary
+           transition-colors duration-200 px-1 py-0.5;
   }
 
   .nav-link::after {
     content: '';
-    @apply absolute bottom-0 left-0 h-px w-0 bg-indigo-500
+    @apply absolute bottom-0 left-0 h-px w-0 bg-gx-tertiary
            transition-all duration-300;
+  }
+
+  .nav-link:hover {
+    @apply text-gx-primary;
   }
 
   .nav-link:hover::after,
@@ -166,35 +138,39 @@
   }
 
   .nav-link.active {
-    @apply text-indigo-400;
-  }
-
-  html:not(.dark) .nav-link {
-    @apply text-zinc-500 hover:text-zinc-900;
+    @apply text-gx-tertiary;
   }
 
   /* ── Ghost {{navigation}} helper output ── */
-  /* Ghost outputs: <ul class="nav"><li class="nav-[slug] [nav-current]"><a> */
   #gh-head .nav {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    @apply flex items-center gap-6 list-none m-0 p-0;
   }
 
   #gh-head .nav li {
-    margin: 0;
-    padding: 0;
+    @apply m-0 p-0;
   }
 
   #gh-head .nav li a {
-    @apply nav-link;
+    @apply relative font-mono text-label uppercase text-gx-secondary
+           transition-colors duration-200 px-1 py-0.5 no-underline;
+  }
+
+  #gh-head .nav li a::after {
+    content: '';
+    @apply absolute bottom-0 left-0 h-px w-0 bg-gx-tertiary
+           transition-all duration-300;
+  }
+
+  #gh-head .nav li a:hover {
+    @apply text-gx-primary;
+  }
+
+  #gh-head .nav li a:hover::after {
+    @apply w-full;
   }
 
   #gh-head .nav li.nav-current a {
-    @apply text-indigo-400;
+    @apply text-gx-tertiary;
   }
 
   #gh-head .nav li.nav-current a::after {
@@ -203,97 +179,89 @@
 
   /* ── Mobile overlay nav ── */
   #nav-overlay .nav {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    @apply flex flex-col gap-1 list-none m-0 p-0;
   }
 
   #nav-overlay .nav li {
-    margin: 0;
-    padding: 0;
+    @apply m-0 p-0;
   }
 
   #nav-overlay .nav li a {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem;
-    border-radius: 0.5rem;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.875rem;
-    color: rgb(212 212 216);
-    border: 1px solid transparent;
-    transition: all 0.15s;
-    text-decoration: none;
+    @apply flex items-center gap-3 p-3 rounded-gx-md font-mono text-label
+           text-gx-secondary border border-transparent
+           transition-all duration-150 no-underline;
   }
 
   #nav-overlay .nav li a::before {
     content: '//';
-    color: rgba(99 102 241 / 0.5);
-    font-size: 0.75rem;
-    flex-shrink: 0;
+    color: rgba(62, 200, 147, 0.4);
+    @apply text-label flex-shrink-0;
   }
 
   #nav-overlay .nav li a:hover,
   #nav-overlay .nav li.nav-current a {
-    background: rgb(39 39 42);
-    color: rgb(165 180 252);
-    border-color: rgb(63 63 70);
+    @apply bg-gx-surface text-gx-primary border-gx-border;
   }
 
   /* ── Button ── */
   .btn-primary {
-    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg font-mono text-sm font-medium
-           bg-indigo-600 text-white border border-indigo-500
-           hover:bg-indigo-500 transition-all duration-200;
+    @apply inline-flex items-center gap-2 rounded-gx-md font-mono text-label font-medium
+           bg-gx-tertiary text-gx-on-primary border border-gx-tertiary
+           transition-opacity duration-200 cursor-pointer no-underline;
+    padding: 12px 20px;
   }
 
   .btn-primary:hover {
-    box-shadow: 0 0 20px -5px rgba(99,102,241,0.4);
+    opacity: 0.88;
   }
 
   .btn-ghost {
-    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg font-mono text-sm font-medium
-           bg-transparent text-zinc-300 border border-zinc-700
-           hover:border-indigo-500 hover:text-indigo-300
-           transition-all duration-200;
+    @apply inline-flex items-center gap-2 rounded-gx-md font-mono text-label font-medium
+           bg-transparent text-gx-secondary border border-gx-border
+           transition-colors duration-200 cursor-pointer no-underline;
+    padding: 12px 20px;
   }
 
-  html:not(.dark) .btn-ghost {
-    @apply text-zinc-700 border-zinc-300 hover:border-indigo-400 hover:text-indigo-600;
+  .btn-ghost:hover {
+    @apply border-gx-tertiary text-gx-primary;
   }
 
   /* ── Admonition / Callout Blocks (Ghost kg-callout-card) ── */
   .kg-callout-card {
-    @apply flex gap-4 rounded-xl p-5 border my-6 font-sans;
+    @apply flex gap-4 rounded-gx-lg p-5 border border-gx-border my-6 font-sans;
   }
 
   .kg-callout-card-yellow,
   .kg-callout-card[data-bg-color='yellow'] {
-    @apply bg-amber-500/10 border-amber-500/30 text-amber-200;
+    border-color: rgba(251, 191, 36, 0.3);
+    background: rgba(251, 191, 36, 0.06);
+    color: #fbbf24;
   }
 
   .kg-callout-card-green,
   .kg-callout-card[data-bg-color='green'] {
-    @apply bg-emerald-500/10 border-emerald-500/30 text-emerald-200;
+    border-color: rgba(62, 200, 147, 0.3);
+    background: rgba(62, 200, 147, 0.06);
+    @apply text-gx-tertiary;
   }
 
   .kg-callout-card-blue,
   .kg-callout-card[data-bg-color='blue'] {
-    @apply bg-indigo-500/10 border-indigo-500/30 text-indigo-200;
+    border-color: rgba(136, 147, 161, 0.3);
+    background: rgba(136, 147, 161, 0.06);
+    @apply text-gx-secondary;
   }
 
   .kg-callout-card-red,
   .kg-callout-card[data-bg-color='red'] {
-    @apply bg-red-500/10 border-red-500/30 text-red-200;
+    border-color: rgba(239, 68, 68, 0.3);
+    background: rgba(239, 68, 68, 0.06);
+    color: #ef4444;
   }
 
   .kg-callout-card-grey,
   .kg-callout-card[data-bg-color='grey'] {
-    @apply bg-zinc-800/50 border-zinc-700 text-zinc-300;
+    @apply bg-gx-surface border-gx-border text-gx-secondary;
   }
 
   .kg-callout-emoji {
@@ -301,7 +269,7 @@
   }
 
   .kg-callout-text {
-    @apply text-sm leading-relaxed;
+    @apply text-body leading-relaxed;
   }
 
   /* ── Ghost Image Card ── */
@@ -310,11 +278,11 @@
   }
 
   .kg-image-card img {
-    @apply rounded-xl border border-zinc-800 w-full;
+    @apply rounded-gx-lg border border-gx-border w-full;
   }
 
   .kg-image-card figcaption {
-    @apply mt-2 text-center text-xs font-mono text-zinc-500;
+    @apply mt-2 text-center text-label font-mono text-gx-secondary;
   }
 
   /* ── Koenig wide / full image widths (required by Ghost validator) ── */
@@ -341,7 +309,8 @@
 
   /* ── Ghost Code Block ── */
   .kg-code-card pre {
-    @apply rounded-xl border border-zinc-800 bg-zinc-900 p-5 overflow-x-auto text-sm;
+    @apply rounded-gx-lg border border-gx-border bg-gx-surface p-5 overflow-x-auto
+           text-sm font-mono;
   }
 
   /* ── Ghost Bookmark Card ── */
@@ -354,11 +323,11 @@
   }
 
   .kg-bookmark-title {
-    @apply font-mono font-medium text-zinc-100 text-sm;
+    @apply font-display font-medium text-gx-primary text-body;
   }
 
   .kg-bookmark-description {
-    @apply text-zinc-400 text-xs leading-relaxed line-clamp-2;
+    @apply text-gx-secondary text-label leading-relaxed line-clamp-2;
   }
 
   .kg-bookmark-metadata {
@@ -366,27 +335,24 @@
   }
 
   .kg-bookmark-icon {
-    @apply w-4 h-4 rounded;
+    @apply w-4 h-4 rounded-gx-sm;
   }
 
   .kg-bookmark-publisher {
-    @apply font-mono text-xs text-indigo-400;
+    @apply font-mono text-label text-gx-tertiary;
   }
 
   /* ── Post Feature Image ── */
   .post-feature-image {
-    @apply relative w-full aspect-video rounded-xl overflow-hidden
-           border border-zinc-800 my-8;
+    @apply relative w-full aspect-video rounded-gx-lg overflow-hidden
+           border border-gx-border my-8;
   }
 
   .post-feature-image img {
     @apply w-full h-full object-cover;
   }
 
-  .post-feature-image::after {
-    content: '';
-    @apply absolute inset-0 bg-gradient-to-t from-zinc-950/60 to-transparent;
-  }
+  /* No gradient overlay — flat design */
 
   /* ── Animated Headline ── */
   .anim-word {
@@ -398,7 +364,7 @@
   }
 
   .anim-highlight {
-    @apply text-indigo-400;
+    @apply text-gx-tertiary;
   }
 
   .home-strike-target,
@@ -409,7 +375,8 @@
   .home-strike-target.is-struck::after,
   .anim-word.is-struck::after {
     content: '';
-    @apply absolute left-0 top-1/2 h-0.5 bg-red-500/70 transition-all duration-500;
+    @apply absolute left-0 top-1/2 h-0.5 transition-all duration-500;
+    background: rgba(239, 68, 68, 0.6);
     width: 0;
     animation: drawStrike 0.5s ease-out forwards;
   }
@@ -420,78 +387,70 @@
 
   /* ── 404 Terminal ── */
   .terminal-block {
-    @apply font-mono text-sm leading-relaxed p-6 rounded-xl
-           bg-zinc-900 border border-zinc-800 space-y-1;
+    @apply font-mono text-sm leading-relaxed p-6 rounded-gx-lg
+           bg-gx-surface border border-gx-border space-y-1;
   }
 
   .terminal-error {
-    @apply text-red-400 font-bold;
+    @apply font-bold;
+    color: #ef4444;
   }
 
   .terminal-muted {
-    @apply text-zinc-600;
+    color: rgba(136, 147, 161, 0.5);
   }
 
   .terminal-warn {
-    @apply text-amber-400;
+    color: #fbbf24;
   }
 
   .terminal-ok {
-    @apply text-emerald-400;
+    @apply text-gx-tertiary;
   }
 
   /* ── Post Log Number ── */
   .log-prefix {
-    @apply font-mono text-xs text-amber-400 select-none;
+    @apply font-mono text-label text-gx-secondary select-none;
   }
 
   /* ── Search Input ── */
   .search-input {
-    @apply w-full bg-transparent font-mono text-lg text-zinc-100
-           placeholder-zinc-600 border-0 outline-none caret-transparent;
-  }
-
-  html:not(.dark) .search-input {
-    @apply text-zinc-900 placeholder-zinc-400;
+    @apply w-full bg-transparent font-mono text-lg text-gx-primary
+           placeholder-gx-secondary/40 border-0 outline-none;
+    caret-color: transparent;
   }
 
   /* ── Prose overrides (post body) ── */
   .gh-content.is-body {
-    @apply prose prose-invert prose-zinc max-w-none;
-  }
-
-  html:not(.dark) .gh-content.is-body {
-    @apply prose prose-zinc max-w-none;
+    @apply prose prose-graphite max-w-none;
   }
 
   .gh-content.is-body pre {
-    @apply bg-zinc-900 border border-zinc-800 rounded-xl text-emerald-300 font-mono text-sm;
+    @apply bg-gx-surface border border-gx-border rounded-gx-lg text-gx-tertiary
+           font-mono text-sm;
   }
 
   .gh-content.is-body code:not(pre code) {
-    @apply bg-zinc-800 text-emerald-300 rounded px-1.5 py-0.5 text-sm font-mono
+    @apply bg-gx-surface text-gx-tertiary rounded-gx-sm px-1.5 py-0.5 text-sm font-mono
            before:content-none after:content-none;
   }
 
-  html:not(.dark) .gh-content.is-body code:not(pre code) {
-    @apply bg-zinc-100 text-indigo-600;
-  }
-
   .gh-content.is-body blockquote {
-    @apply border-l-4 border-amber-400 bg-amber-500/5 rounded-r-lg
-           pl-4 pr-4 py-2 italic text-zinc-300 not-italic;
+    @apply border-l-[3px] border-gx-tertiary rounded-r-gx-md
+           pl-4 pr-4 py-2 text-gx-secondary not-italic;
+    background: rgba(62, 200, 147, 0.04);
   }
 
   /* h2/h3 anchor prefix on hover */
   .gh-content.is-body h2:hover::before,
   .gh-content.is-body h3:hover::before {
     content: '# ';
-    @apply text-indigo-500/60;
+    color: rgba(62, 200, 147, 0.4);
   }
 
   .gh-content.is-body h2,
   .gh-content.is-body h3 {
-    @apply font-mono;
+    @apply font-display;
   }
 
   /* ── Author Card (post footer) ── */
@@ -500,25 +459,25 @@
   }
 
   .author-card-avatar {
-    @apply w-12 h-12 rounded-full border-2 border-zinc-700 object-cover flex-shrink-0;
+    @apply w-12 h-12 rounded-full border-2 border-gx-border object-cover flex-shrink-0;
   }
 
   .author-card-name {
-    @apply font-mono font-semibold text-zinc-100 text-sm;
+    @apply font-display font-semibold text-gx-primary text-body;
   }
 
   .author-card-bio {
-    @apply text-zinc-400 text-sm leading-relaxed mt-0.5;
+    @apply text-gx-secondary text-body leading-relaxed mt-0.5;
   }
 
   /* ── Footer Terminal ── */
   .footer-terminal {
-    @apply font-mono text-xs text-zinc-600 space-y-1;
+    @apply font-mono text-label text-gx-secondary space-y-1;
   }
 
   /* ── Reading Progress Bar ── */
   #reading-progress {
-    @apply fixed top-0 left-0 h-0.5 bg-indigo-500 z-50 transition-all duration-100;
+    @apply fixed top-0 left-0 h-0.5 bg-gx-tertiary z-50 transition-all duration-100;
     width: 0;
   }
 }
@@ -526,10 +485,6 @@
 
 /* ── Utilities Layer ───────────────────────────────────────────────────────── */
 @layer utilities {
-  .text-shadow-glow {
-    text-shadow: 0 0 20px rgba(99,102,241,0.5);
-  }
-
   .animate-blink {
     animation: blink 1s step-end infinite;
   }
@@ -553,18 +508,9 @@
     overflow: hidden;
   }
 
-  /* Glassmorphism helper */
-  .glass {
-    @apply backdrop-blur-md bg-zinc-900/70 border border-zinc-800/80;
-  }
-
-  html:not(.dark) .glass {
-    @apply bg-white/80 border-zinc-200/80;
-  }
-
   /* Indent code line numbers */
   .prose pre .line-number {
-    @apply text-zinc-600 select-none mr-4 text-right;
+    @apply text-gx-secondary select-none mr-4 text-right;
     min-width: 1.5rem;
     display: inline-block;
   }

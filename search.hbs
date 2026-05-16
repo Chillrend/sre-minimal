@@ -1,76 +1,62 @@
-{{!< default}}
-{{!-- search.hbs — Custom Search Page using Ghost Content API --}}
-{{!-- Route defined in routes.yaml: /search/ → template: search --}}
-
-<div id="search-root"
-     class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
-     data-ghost-url="{{@site.url}}"
-     data-content-key="{{@site.content_api_key}}">
+{{!< default}} {{!-- search.hbs — Custom Search Page using Ghost Content API --}} {{!-- Route defined in routes.yaml:
+  /search/ → template: search --}} <div id="search-root" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
+  data-ghost-url="{{@site.url}}" data-content-key="{{@site.content_api_key}}">
 
   {{!-- ── Search Header ─────────────────────────────────────────────────── --}}
-  <header class="mb-10 pb-10 border-b border-zinc-800 space-y-2">
-    <span class="font-mono text-xs text-zinc-600">// search</span>
-    <h1 class="text-3xl sm:text-4xl font-mono font-bold text-zinc-100">
+  <header class="mb-10 pb-10 border-b border-gx-border space-y-2">
+    <span class="font-mono text-label text-gx-secondary">// search</span>
+    <h1 class="text-3xl sm:text-4xl font-display font-semibold text-gx-primary">
       Find Posts
     </h1>
-    <p class="text-zinc-400 text-sm">Type to search across all posts.</p>
+    <p class="text-gx-secondary text-sm">Type to search across all posts.</p>
   </header>
 
   {{!-- ── Search Input ─────────────────────────────────────────────────── --}}
   <div class="glass-card flex items-center gap-3 px-5 py-4 mb-4
-              focus-within:border-indigo-500 focus-within:shadow-glow-indigo
+              focus-within:border-gx-tertiary
               transition-all duration-300">
 
     {{!-- Terminal prompt icon --}}
-    <span class="font-mono text-emerald-500 text-sm flex-shrink-0" aria-hidden="true">$</span>
+    <span class="font-mono text-gx-tertiary text-sm flex-shrink-0" aria-hidden="true">$</span>
 
     {{!-- The input --}}
-    <input
-      id="search-input"
-      type="search"
-      class="search-input"
-      placeholder="find articles..."
-      autocomplete="off"
-      spellcheck="false"
-      aria-label="Search posts"
-    >
+    <input id="search-input" type="search" class="search-input" placeholder="find articles..." autocomplete="off"
+      spellcheck="false" aria-label="Search posts">
 
     {{!-- Blinking cursor element --}}
-    <span id="search-cursor"
-          class="font-mono text-indigo-400 text-lg leading-none flex-shrink-0"
-          aria-hidden="true">▋</span>
+    <span id="search-cursor" class="font-mono text-gx-tertiary text-lg leading-none flex-shrink-0"
+      aria-hidden="true">▋</span>
 
     {{!-- Search icon right side --}}
-    <svg class="w-5 h-5 text-zinc-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <svg class="w-5 h-5 text-gx-secondary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+      aria-hidden="true">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
     </svg>
   </div>
 
   {{!-- ── Status Line ─────────────────────────────────────────────────── --}}
-  <div id="search-status" class="font-mono text-sm mb-8 h-5" aria-live="polite" aria-atomic="true"></div>
+  <div id="search-status" class="font-mono text-label mb-8 h-5" aria-live="polite" aria-atomic="true"></div>
 
   {{!-- ── Results Grid ─────────────────────────────────────────────────── --}}
-  <div id="search-results"
-       class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
-       aria-label="Search results"
-       aria-live="polite">
+  <div id="search-results" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" aria-label="Search results"
+    aria-live="polite">
     {{!-- Populated by search.js --}}
   </div>
 
   {{!-- ── Browse All Tags (fallback / discovery) ────────────────────────── --}}
-  <div class="mt-16 pt-10 border-t border-zinc-800">
-    <h2 class="font-mono text-sm text-zinc-600 mb-4">// browse by topic</h2>
+  <div class="mt-16 pt-10 border-t border-gx-border">
+    <h2 class="font-mono text-label text-gx-secondary mb-4">// browse by topic</h2>
     <div class="flex flex-wrap gap-2">
       {{#get "tags" limit="all" order="count.posts desc"}}
-        {{#foreach tags}}
-          <a href="{{url}}" class="mono-badge hover:border-indigo-500/60 transition-colors">
-            {{name}}
-            <span class="ml-1 text-zinc-600">{{count.posts}}</span>
-          </a>
-        {{/foreach}}
+      {{#foreach tags}}
+      <a href="{{url}}" class="mono-badge no-underline hover:border-gx-tertiary/60 transition-colors">
+        {{name}}
+        <span class="ml-1 text-gx-secondary/50">{{count.posts}}</span>
+      </a>
+      {{/foreach}}
       {{/get}}
     </div>
   </div>
 
-</div>
+  </div>

@@ -6,13 +6,13 @@
   {{!-- ── Page Header ─────────────────────────────────────────────────── --}}
   <header class="mb-14">
     <div class="flex items-center gap-3 mb-4">
-      <span class="font-mono text-xs text-zinc-600">// posts.log</span>
+      <span class="font-mono text-label text-gx-secondary">// posts.log</span>
       <span class="mono-badge">{{pagination.total}} entries</span>
     </div>
-    <h1 class="text-3xl sm:text-4xl font-mono font-bold text-zinc-100 leading-tight">
-      <span class="text-indigo-400">blog</span><span class="text-zinc-600">/</span>
+    <h1 class="text-3xl sm:text-4xl font-display font-semibold text-gx-primary leading-tight">
+      <span class="text-gx-tertiary">blog</span><span class="text-gx-secondary">/</span>
     </h1>
-    <p class="mt-2 font-mono text-sm text-zinc-500">
+    <p class="mt-2 font-mono text-label text-gx-secondary">
       &gt; All posts — sorted by date desc
     </p>
   </header>
@@ -27,7 +27,7 @@
   {{else}}
     <div class="terminal-block text-center py-12">
       <p class="terminal-muted">$ ls -la posts/</p>
-      <p class="text-zinc-400 mt-2">total 0</p>
+      <p class="text-gx-secondary mt-2">total 0</p>
       <p class="terminal-muted mt-1">No posts found yet.</p>
     </div>
   {{/if}}

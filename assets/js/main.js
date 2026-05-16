@@ -1,49 +1,10 @@
 /**
  * SRE-Minimalist Ghost Theme — main.js
- * Handles: theme toggle, mobile nav, reading progress, header scroll behaviour
+ * Handles: mobile nav, reading progress, header scroll behaviour
  */
 
 (function () {
   'use strict';
-
-  // ── Theme Toggle (dark / light) ──────────────────────────────────────────
-  const THEME_KEY = 'sre-theme';
-  const html = document.documentElement;
-
-  function applyTheme(theme) {
-    if (theme === 'dark') {
-      html.classList.add('dark');
-    } else {
-      html.classList.remove('dark');
-    }
-    localStorage.setItem(THEME_KEY, theme);
-    updateThemeIcon(theme);
-  }
-
-  function updateThemeIcon(theme) {
-    const sunIcon  = document.getElementById('theme-icon-sun');
-    const moonIcon = document.getElementById('theme-icon-moon');
-    if (!sunIcon || !moonIcon) return;
-    if (theme === 'dark') {
-      sunIcon.classList.remove('hidden');
-      moonIcon.classList.add('hidden');
-    } else {
-      sunIcon.classList.add('hidden');
-      moonIcon.classList.remove('hidden');
-    }
-  }
-
-  function initTheme() {
-    const saved = localStorage.getItem(THEME_KEY);
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const theme = saved || (prefersDark ? 'dark' : 'light');
-    applyTheme(theme);
-  }
-
-  function toggleTheme() {
-    const current = html.classList.contains('dark') ? 'dark' : 'light';
-    applyTheme(current === 'dark' ? 'light' : 'dark');
-  }
 
   // ── Mobile Navigation ────────────────────────────────────────────────────
   function initMobileNav() {
@@ -83,7 +44,6 @@
     const header = document.getElementById('gh-head');
     if (!header) return;
 
-    let lastY = 0;
     window.addEventListener('scroll', () => {
       const y = window.scrollY;
       if (y > 20) {
@@ -91,7 +51,6 @@
       } else {
         header.classList.remove('is-scrolled');
       }
-      lastY = y;
     }, { passive: true });
   }
 
@@ -147,17 +106,12 @@
 
   // ── Init ─────────────────────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', () => {
-    initTheme();
     initMobileNav();
     initHeaderScroll();
     initReadingProgress();
     initSmoothScroll();
     initActiveNav();
     initExternalLinks();
-
-    // Wire up theme toggle button
-    const themeBtn = document.getElementById('theme-toggle');
-    if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
   });
 
 })();
